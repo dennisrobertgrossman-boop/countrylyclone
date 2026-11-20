@@ -33,7 +33,7 @@ Limitation: statistics and challenge results are recorded by each player's brows
 | Hemisphere (central latitude) | same | – | different |
 | Population (▲ hidden country has more, ▼ fewer) | within ±10% | half to double | otherwise |
 | Average temperature (▲ warmer, ▼ colder) | within 1 °C | within 5 °C | otherwise |
-| Coordinates (arrow points toward the hidden country) | correct country | under 1,500 km | otherwise |
+| Coordinates (compass direction to the hidden country: north/south by latitude, east/west the shorter way around the globe) | correct country | under 1,500 km | otherwise |
 
 Countries: the 193 United Nations member states plus Vatican City (194 in total). Targets are drawn from a shuffled deck, so no country repeats until all 194 have come up. Statistics are kept in the browser's local storage.
 

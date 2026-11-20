@@ -66,10 +66,15 @@
     const h = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * Math.sin(dLng / 2) ** 2;
     return 2 * 6371 * Math.asin(Math.sqrt(h));
   };
+  // Compass (rhumb-line) direction: north/south always follows the latitude difference and
+  // east/west takes the shorter way around the globe. (The great-circle starting direction used
+  // before could point north to a country further south, e.g. Egypt -> Samoa showed NE.)
+  const mercatorY = (lat) => Math.log(Math.tan(Math.PI / 4 + toRad(lat) / 2));
   const bearing = (a, b) => {
-    const y = Math.sin(toRad(b.lng - a.lng)) * Math.cos(toRad(b.lat));
-    const x = Math.cos(toRad(a.lat)) * Math.sin(toRad(b.lat)) - Math.sin(toRad(a.lat)) * Math.cos(toRad(b.lat)) * Math.cos(toRad(b.lng - a.lng));
-    return ((Math.atan2(y, x) * 180) / Math.PI + 360) % 360;
+    let dLng = b.lng - a.lng;
+    if (dLng > 180) dLng -= 360;
+    else if (dLng < -180) dLng += 360;
+    return ((Math.atan2(toRad(dLng), mercatorY(b.lat) - mercatorY(a.lat)) * 180) / Math.PI + 360) % 360;
   };
   const COMPASS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
   const hemisphere = (c) => (c.lat >= 0 ? 'Northern' : 'Southern');
